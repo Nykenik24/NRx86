@@ -1,5 +1,12 @@
+#include "mvm.h"
+#include "mvm/util/logger.h"
 #include <stdio.h>
+
 int main(void) {
-    printf("Hello, World!\n");
-    return 0;
+#ifdef DEBUG
+  printf(MVM_BUILD "\n");
+  printf("By " MVM_AUTHORS "\n");
+  printf("\n\n");
+#endif
+  return 0;
 }

@@ -10,7 +10,7 @@
       "args": ["-j8"],
       "cwd": "$ZED_WORKTREE_ROOT",
     },
-    "program": "$ZED_WORKTREE_ROOT/bin/nrx86",
+    "program": "$ZED_WORKTREE_ROOT/bin/mvm",
     "request": "launch",
     "adapter": "CodeLLDB",
   },

@@ -54,6 +54,11 @@ dkms.conf
 # debug information files
 *.dwo
 
-# NRx86
+# Output
 bin
 obj
+
+# Misc.
+compile_commands.json
+vgcore.*
+.cache

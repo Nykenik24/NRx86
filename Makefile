@@ -1,38 +1,53 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -g -Iinclude
+CFLAGS_DEBUG = $(CFLAGS) -DDEBUG
 LDFLAGS =
 
 SRC_DIR = src
-INC_DIR = include
 OBJ_DIR = obj
+OBJ_DIR_DEBUG = obj_debug
 BIN_DIR = bin
 
-SRCS = $(wildcard $(SRC_DIR)/*.c)
+SRCS := $(shell find $(SRC_DIR) -type f -name '*.c')
 
-OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+OBJS := $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
+OBJS_DEBUG := $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR_DEBUG)/%.o,$(SRCS))
 
-TARGET = $(BIN_DIR)/nrx86
-
-DEPS = $(wildcard $(INC_DIR)/*.h)
+TARGET = $(BIN_DIR)/mvm
+TARGET_DEBUG = $(BIN_DIR)/mvm_debug
 
 all: $(TARGET)
+
+debug: $(TARGET_DEBUG)
 
 $(TARGET): $(OBJS)
 	@mkdir -p $(BIN_DIR)
 	$(CC) $(LDFLAGS) -o $@ $^
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(DEPS)
-	@mkdir -p $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c -o $@ $<
+$(TARGET_DEBUG): $(OBJS_DEBUG)
+	@mkdir -p $(BIN_DIR)
+	$(CC) $(LDFLAGS) -o $@ $^
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -MMD -MP -c -o $@ $<
+
+$(OBJ_DIR_DEBUG)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS_DEBUG) -MMD -MP -c -o $@ $<
 
 clean:
-	rm -rf $(OBJ_DIR) $(BIN_DIR)
+	rm -rf $(OBJ_DIR) $(OBJ_DIR_DEBUG) $(BIN_DIR)
 
 rebuild: clean all
 
 run: $(TARGET)
 	./$(TARGET)
 
--include $(OBJS:.o=.d)
+run-debug: $(TARGET_DEBUG)
+	./$(TARGET_DEBUG)
 
-.PHONY: all clean rebuild run
+-include $(OBJS:.o=.d)
+-include $(OBJS_DEBUG:.o=.d)
+
+.PHONY: all clean rebuild run debug run-debug
