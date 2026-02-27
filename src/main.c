@@ -13,13 +13,18 @@ int main(void) {
 #endif
 
   mvm_vm *vm = new_vm();
-  uint16_t code[] = {OP_LD, REG_R0, 1, OP_HALT};
+  // clang-format off
+  uint16_t code[] = {
+      OP_LDI, REG_R0, 6,
+      OP_HALT
+  };
+  // clang-format on
   size_t code_len = sizeof(code) / sizeof(code[0]);
-  vm_load(vm, code, code_len);
+  vm_load_code(vm, code, code_len);
   vm_loop(vm);
 
   mvm_reg_dump(vm);
-  mvm_mem_dump(vm, code_len);
+  mvm_mem_dump(vm, 16);
 
   free_vm(vm);
   return 0;
