@@ -2,6 +2,17 @@
 #include <stdarg.h>
 #include <stdio.h>
 
+MVM_ERRNO mvm_errno = MVM_NOERR;
+
+const char *mvm_errstr[] = {
+    [MVM_NOERR] = "Used 'errprint', but there was no error",
+    [MVM_UNRECOGNIZED_OPERATION] = "Operation not recognized",
+    [MVM_OFFSET_OUT_OF_BOUNDS] = "Offset out of bounds",
+    [MVM_REGISTER_OUT_OF_BOUNDS] = "Register out of bounds (max is 7)",
+    [MVM_CODE_LEN_OUT_OF_BOUNDS] =
+        "Loaded code surpasses the set code length limit",
+    [MVM_OUT_OF_USEMEM_BOUNDS] = "Index is out of usable memory bounds"};
+
 void errprint(const char *fmt, ...) {
   va_list args;
   va_start(args, fmt);
