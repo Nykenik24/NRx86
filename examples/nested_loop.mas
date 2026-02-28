@@ -1,0 +1,24 @@
+
+LDI 2, 10    ; R2 = 10
+
+LDI 0, 0    ; R0 = 0
+
+JPT       ; jump point 1
+LDI 1, 0    ; R1 = 0
+
+JPT       ; jump point 2
+    ADDI 1, 1, 1  ; R1++
+    PUTS 4, 'R', '1', ':', ' '
+    PUTN 1
+    NEWL
+    CEQ 1, 2      ; R1 == 10?
+    JF 2          ; if not, jump back to 2
+
+ADDI 0, 1, 0  ; R0++
+NEWL
+PUTS 4, 'R', '0', ':', ' '
+PUTN 0
+NEWL
+NEWL
+CEQ 0, 2      ; R0 == 10?
+JF 1          ; if not, jump back to 1
