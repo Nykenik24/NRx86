@@ -29,8 +29,29 @@ void mvm_log(log_level_t log_level, const char *fmt, ...) {
 
 void mvm_reg_dump(mvm_vm *vm) {
   for (size_t i = 0; i < REG_COUNT; i++) {
-    printf("\x1b[31mreg\x1b[0m[\x1b[32m'%s'\x1b[0m]: \x1b[33m%d\x1b[0m\n",
-           regstr[i], vm->reg[i]);
+    switch (i) {
+
+    case REG_PC:
+      printf("\x1b[31mreg\x1b[0m[\x1b[32m'%s'\x1b[0m]: \x1b[33m%d "
+             "\x1b[34m(%d)\x1b[0m\n",
+             regstr[i], vm->reg[i] - CODE_START, vm->reg[i]);
+      break;
+
+    case REG_CND:
+      printf("\x1b[31mreg\x1b[0m[\x1b[32m'%s'\x1b[0m]: \x1b[34m%s\x1b[0m\n",
+             regstr[i], vm->reg[i] ? "true" : "false");
+      break;
+
+    case REG_FLAG:
+      printf("\x1b[31mreg\x1b[0m[\x1b[32m'%s'\x1b[0m]: \x1b[34m%s\x1b[0m\n",
+             regstr[i], vm->reg[i] == FLAG_ZERO ? "zero" : "negative");
+      break;
+
+    default:
+      printf("\x1b[31mreg\x1b[0m[\x1b[32m'%s'\x1b[0m]: \x1b[33m%d\x1b[0m\n",
+             regstr[i], vm->reg[i]);
+      break;
+    }
   }
 }
 

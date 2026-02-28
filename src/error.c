@@ -11,7 +11,11 @@ const char *mvm_errstr[] = {
     [MVM_REGISTER_OUT_OF_BOUNDS] = "Register out of bounds (max is 7)",
     [MVM_CODE_LEN_OUT_OF_BOUNDS] =
         "Loaded code surpasses the set code length limit",
-    [MVM_OUT_OF_USEMEM_BOUNDS] = "Index is out of usable memory bounds"};
+    [MVM_OUT_OF_USEMEM_BOUNDS] = "Index is out of usable memory bounds",
+    [MVM_DIVIDE_BY_0] = "Can't divide by 0",
+    [MVM_JUMP_OUTSIDE_PROGRAM] = "Tried to jump outside of program bounds",
+    [MVM_ERROR_WHEN_CREATING] = "(INTERNAL) Error when creating/allocating",
+    [MVM_LEX_UNKNOWN_CHAR] = "Unknown character"};
 
 void errprint(const char *fmt, ...) {
   va_list args;
