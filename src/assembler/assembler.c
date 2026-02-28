@@ -40,12 +40,17 @@ uint16_t *assemble(mvm_asm_token_list *tokens, size_t *code_len) {
     mvm_asm_token *token = tokens->tokens[i];
     switch (token->kind) {
     case T_OP: {
+      int op_exists = 0;
       for (size_t j = 1; j < OP_COUNT; j++) {
         if (strcmp(strop[j], token->text) == 0) {
           code[codei] = j;
           codei++;
+          op_exists = 1;
           break;
         }
+      }
+
+      if (!op_exists) {
         mvm_errno = MVM_UNRECOGNIZED_OPERATION;
         errprint("'%s'", token->text);
         exit(1);
