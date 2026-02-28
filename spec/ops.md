@@ -17,13 +17,13 @@
 | CGR  | Checks if `reg0` > `reg1` and stores the result at `CND`              | `reg0`, `reg1`         |
 | CLO  | Checks if `reg0` < `reg1` and stores the result at `CND`              | `reg0`, `reg1`         |
 | CEQ  | Checks if `reg0` == `reg1` and stores the result at `CND`             | `reg0`, `reg1`         |
-| JMP  | Jumps to `dest`                                                       | `dest`                 |
-| JT   | Jumps to `dest` **IF** `CND` is true                                  | `dest`                 |
-| JF   | Jumps to `dest` **IF** `CND` is false                                 | `dest`                 |
-| JZ   | Jumps to `dest` **IF** `FLAG` is `Z` (Zero)                           | `dest`                 |
-| JNZ  | Jumps to `dest` **IF** `FLAG` is **NOT** `Z` (Zero)                   | `dest`                 |
-| JN   | Jumps to `dest` **IF** `FLAG` is `N` (Negative)                       | `dest`                 |
-| JNN  | Jumps to `dest` **IF** `FLAG` is **NOT** `N` (Negative)               | `dest`                 |
+| JMP  | Jumps to `jpt`                                                        | `jpt`                  |
+| JT   | Jumps to `jpt` **IF** `CND` is true                                   | `jpt`                  |
+| JF   | Jumps to `jpt` **IF** `CND` is false                                  | `jpt`                  |
+| JZ   | Jumps to `jpt` **IF** `FLAG` is `Z` (Zero)                            | `jpt`                  |
+| JNZ  | Jumps to `jpt` **IF** `FLAG` is **NOT** `Z` (Zero)                    | `jpt`                  |
+| JN   | Jumps to `jpt` **IF** `FLAG` is `N` (Negative)                        | `jpt`                  |
+| JNN  | Jumps to `jpt` **IF** `FLAG` is **NOT** `N` (Negative)                | `jpt`                  |
 | PUTN | Output number at `reg`                                                | `reg`                  |
 | PUTS | Output string of len `strlen`. Will read `strlen` characters in code. | `strlen`, `...`        |
 | JPT  | Define a new jump point                                               | _None_                 |
